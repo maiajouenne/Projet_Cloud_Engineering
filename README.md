@@ -11,19 +11,19 @@
     |       └─ dockerfile
     |
     |-----Serveur
-    |       └─ Dockerfile
+    |       └─ dockerfile
     |         
     |-----Broker
-    |       └─ Dockerfile
+    |       └─ dockerfile
     |
     |-----API-notifier
-    |       └─ Dockerfile
+    |       └─ dockerfile
     |
     |-----API-gestion-db
-    |       └─ Dockerfile
+    |       └─ dockerfile
     |
     |-----API-gestion-client
-    |       └─ Dockerfile
+    |       └─ dockerfile
 
 
 Authors : Thomas ODIN, Maïa JOUENNE, Gianluca SCHIELO
