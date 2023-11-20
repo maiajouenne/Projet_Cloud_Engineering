@@ -1,0 +1,14 @@
+{
+  "name": "serveur",
+  "version": "1.0.0",
+  "description": "aplication to redirect message to kafka broker",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Thomas ODIN",
+  "license": "SEE LICENSE IN LICENSE",
+  "dependencies": {
+    "kafkajs": "^2.2.4"
+  }
+}
