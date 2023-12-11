@@ -1,0 +1,14 @@
+{
+  "name": "api-gestion-db",
+  "version": "1.0.0",
+  "description": "Application to read kafka message and put it in the database",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Todin",
+  "license": "SEE LICENSE IN LICENSE",
+  "dependencies": {
+    "kafkajs": "^2.2.4"
+  }
+}

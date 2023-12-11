@@ -64,6 +64,7 @@ app.post('/', async (req, res) => {
 
         await producer.disconnect();
 
+        console.log('Succesfuly passed a ticket')
         res.send(`Ticket successfuly saved\n`);
     
     } else {
@@ -79,6 +80,7 @@ app.post('/', async (req, res) => {
 
         await producer.disconnect();
         
+        console.log('Error in the ticket not passed')
         res.send(`Error in the ticket\n`);
     }
 })
