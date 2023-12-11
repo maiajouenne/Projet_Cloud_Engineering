@@ -10,5 +10,6 @@
   "license": "SEE LICENSE IN LICENSE",
   "dependencies": {
     "kafkajs": "^2.2.4"
-  }
+  },
+  "type": "module"
 }
