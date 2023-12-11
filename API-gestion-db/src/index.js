@@ -1,4 +1,5 @@
 import { Kafka } from 'kafkajs';
+import { MongoClient } from 'mongodb';
 
 const kafka_adress = process.env.KAFKA_ADRESS || 'localhost:9094'
 
@@ -21,4 +22,4 @@ await consumer.run({
         value: message.value ? message.value.toString() : null,
         headers: message.headers,
     });
-}})
+}});

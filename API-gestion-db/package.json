@@ -9,7 +9,8 @@
   "author": "Todin",
   "license": "SEE LICENSE IN LICENSE",
   "dependencies": {
-    "kafkajs": "^2.2.4"
+    "kafkajs": "^2.2.4",
+    "mongodb": "^6.3.0"
   },
   "type": "module"
 }
