@@ -44,16 +44,38 @@ app.get('/', async (req, res) => {
 
 app.post('/', async (req, res) => {
     
-    await producer.connect();
-    
-    await producer.send({
-    topic: 'Ticket-valide',
-    messages: [
-        { key: 'Ticket', value: 'hello world' },
-        ],
-    })
+    // If the object keys match the required keys, update Redis data
+    if (areKeysMatching(req.body)) {
 
-    await producer.disconnect();
+        await producer.connect();
+        
+        await producer.send({
+        topic: 'Ticket-valide',
+        messages: [
+            { value: req.body},
+            ],
+        })
+
+        await producer.disconnect();
+
+        res.send('Ticket successfuly saved');
+    
+    } else {
+        
+        await producer.connect();
+        
+        await producer.send({
+        topic: 'Ticket-error',
+        messages: [
+            { value: req.body},
+            ],
+        });
+
+        await producer.disconnect();
+        
+        res.send('Error in the ticket');
+
+    }
 })
 
 
