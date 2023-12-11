@@ -10,6 +10,16 @@ const kafka = new Kafka({
     brokers: [kafka_adress],
   });
 
+const mongo_network = process.env.MONGO_NETWORK || 'localhost'
+
+const mongo_host = process.env.MONGO_HOST|| '27017'
+
+const mongo_adress = 'mongodb://' + mongo_network + ':' + mongo_host
+
+const mongoClient = new MongoClient(mongo_adress, { useNewUrlParser: true, useUnifiedTopology: true });
+
+await mongoClient.connect();
+
 const consumer = kafka.consumer({ groupId: 'API-db' })
 
 await consumer.connect()
@@ -17,9 +27,22 @@ await consumer.subscribe({ topic: 'Ticket-valide', fromBeginning: true })
 
 await consumer.run({
   eachMessage: async ({ topic, partition, message }) => {
-    console.log({
-        key: message.key ? message.key.toString() : null,
-        value: message.value ? message.value.toString() : null,
-        headers: message.headers,
-    });
+    try {
+        // Parse the message value (assuming it's a JSON string)
+        const messageValue = JSON.parse(message.value.toString());
+
+        // Save the message to MongoDB
+        const db = mongoClient.db('your_database_name');
+        const collection = db.collection(topic);
+
+        await collection.insertOne({
+            key: message.key ? message.key.toString() : null,
+            value: messageValue,
+            headers: message.headers,
+        });
+
+        console.log(`Message saved to MongoDB for topic: ${topic}`);
+    } catch (error) {
+        console.error('Error processing Kafka message:', error);
+    };
 }});
