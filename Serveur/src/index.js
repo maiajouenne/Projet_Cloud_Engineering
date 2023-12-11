@@ -1,5 +1,6 @@
 import express from 'express';
-import Kafka from 'kafkajs';
+import { Kafka, Partitioners } from 'kafkajs';
+
 
 // Create an Express application
 const app = express();
@@ -8,11 +9,17 @@ const app = express();
 const port = process.env.RECEIVE_PORT || 8080;
 
 // Create the kafka app
-const kafka = new Kafka({
-    clientId: 'my-app',
-    brokers: ['kafka1:9092', 'kafka2:9092'],
-  })
 
+// Create the kafka app
+const kafka = new Kafka({
+    clientId: 'Serveur',
+    brokers: ['localhost:9094'],
+  });
+
+
+const producer = kafka.producer({
+    createPartitioner: Partitioners.LegacyPartitioner,
+  });
 
 // Function to check if keys are present in the object
 function checkKeys(obj) {
@@ -34,6 +41,20 @@ app.use(bodyParser.json());
 app.get('/', async (req, res) => {
     res.send("hello world!")
 });
+
+app.post('/', async (req, res) => {
+    
+    await producer.connect();
+    
+    await producer.send({
+    topic: 'Ticket-valide',
+    messages: [
+        { key: 'Ticket', value: 'hello world' },
+        ],
+    })
+
+    await producer.disconnect();
+})
 
 
 // Start the Express application and listen on the specified port
