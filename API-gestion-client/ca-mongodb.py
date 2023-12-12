@@ -4,11 +4,13 @@ import os
 
 app = FastAPI()
 
-host_url = os.getenv("HOST_URL", "http://127.0.0.1:8000")  
+host_url = os.getenv("HOST_URL", "http://127.0.0.1:8000")
+mongo_client = os.getenv("MONGO_CLIENT", "localhost")
+mongo_port = os.getenv("MONGO_PORT", 27017)  
 
 @app.get("/data")
 async def get_data():
-    client = MongoClient("localhost", 27017, maxPoolSize=50)
+    client = MongoClient(mongo_client, mongo_port, maxPoolSize=50)
     db = client.localhost
     collection = db["Ticket-valide"]
 
