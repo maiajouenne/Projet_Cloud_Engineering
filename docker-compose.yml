@@ -28,31 +28,29 @@ services:
 
   # Node.js service for API-gestion-db
   api_gestion_db:
-    build:
-      context: ./API-gestion-db/dockerfile
+    build: ./API-gestion-db/
     environment:
-      - KAFKA_ADRESS=kafka:9094
+      - KAFKA_ADRESS=kafka:9092
       - KAFKA_ID=Consumer
       - MONGO_NETWORK=mongodb
       - MONGO_HOST=27017
 
   # Node.js service for Serveur
   serveur:
-    build:
-      context: ./Serveur/dockerfile
+    build: ./Serveur/
     ports:
       - "8080:8080"
     environment:
       - PORT=8080
-      - KAFKA_ADRESS=kafka:9094
+      - KAFKA_ADRESS=kafka:9092
       - KAFKA_ID=Serveur
 
   # Python service for Shop
-  shop:
-    build:
-      context: ./Shop/dockerfile
-    ports:
-      - "8000:8000"
+  # shop:
+  #   build:
+  #     context: ./Shop/dockerfile
+  #   ports:
+  #     - "8000:8000"
 
 volumes:
   mongodb_data:
