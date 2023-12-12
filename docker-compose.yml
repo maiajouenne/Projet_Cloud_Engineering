@@ -46,11 +46,16 @@ services:
       - KAFKA_ID=Serveur
 
   # Python service for Shop
-  # shop:
-  #   build:
-  #     context: ./Shop/dockerfile
-  #   ports:
-  #     - "8000:8000"
+  shop:
+    build: ./Shop/
+    ports:
+      - "8000:8000"
+
+  # Python service for ca
+  ca:
+    build: ./API-gestion-client/
+    ports:
+      - "8000:8000"
 
 volumes:
   mongodb_data:

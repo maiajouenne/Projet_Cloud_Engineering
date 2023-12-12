@@ -24,4 +24,3 @@ async def get_data():
             ca_dict[ticket["magasin"]] = ticket["total"]
 
     return ca_dict
-
