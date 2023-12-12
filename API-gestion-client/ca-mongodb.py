@@ -8,11 +8,11 @@ host_url = os.getenv("HOST_URL", "http://127.0.0.1:8000")
 
 @app.get("/data")
 async def get_data():
-    client = MongoClient(host_url)
-    db = client["database"]
-    collection = db["tickets"]
+    client = MongoClient("localhost", 27017, maxPoolSize=50)
+    db = client.localhost
+    collection = db["Ticket-valide"]
 
-    data = collection.find_one()
+    data = collection.find({})
     
     ca_dict = {}
     for ticket in data:
