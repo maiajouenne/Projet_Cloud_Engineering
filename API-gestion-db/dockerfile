@@ -10,6 +10,12 @@ COPY package*.json ./
 # Install application dependencies
 RUN npm install
 
+# Setting up ENV variable
+ENV KAFKA_ADRESS 'localhost:9094'
+ENV KAFKA_ID 'Consumer'
+ENV MONGO_NETWORK 'localhost'
+ENV MONGO_HOST '27017'
+
 # Copy the rest of the application code to the working directory
 COPY src ./src
 
