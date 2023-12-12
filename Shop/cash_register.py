@@ -8,7 +8,7 @@ import time
 import random
 import string
 import httpx
-import os  # Import the os module
+import os 
 
 app = FastAPI()
 
@@ -49,8 +49,8 @@ tickets = []
 # Fonction pour générer un ticket toutes les minutes
 def generer_ticket_periodiquement():
     try:
-        magasin = generer_nom_aleatoire()
-        vendeur = generer_nom_aleatoire()
+        magasin = os.getenv("MAGASIN", generer_nom_aleatoire()) 
+        vendeur = os.getenv("VENDEUR", generer_nom_aleatoire()) 
 
         articles = [
             Article(nom=f"Article {i}", prix=round(random.uniform(1.0, 20.0), 2), quantite=random.randint(1, 5))
