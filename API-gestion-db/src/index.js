@@ -23,7 +23,7 @@ await mongoClient.connect();
 const consumer = kafka.consumer({ groupId: 'API-db' })
 
 await consumer.connect()
-await consumer.subscribe({ topic: ['Ticket-valide', 'Ticket-error']})
+await consumer.subscribe({ topics: ['Ticket-valide', 'Ticket-error']})
 
 await consumer.run({
   eachMessage: async ({ topic, partition, message }) => {
