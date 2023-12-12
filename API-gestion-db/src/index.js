@@ -32,7 +32,7 @@ await consumer.run({
         const messageValue = JSON.parse(message.value.toString());
 
         // Save the message to MongoDB
-        const db = mongoClient.db('your_database_name');
+        const db = mongoClient.db('Ticket');
         const collection = db.collection(topic);
 
         await collection.insertOne({
