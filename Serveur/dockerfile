@@ -13,8 +13,11 @@ RUN npm install
 # Copy the rest of the application code to the working directory
 COPY src ./src
 
+# Set a default value for the exposed port (you can override this during runtime)
+ENV PORT 8080
+
 # Expose the port that the application will run on
-EXPOSE 8080
+EXPOSE $PORT
 
 # Command to start your application
 CMD ["node", "src/index.js"]
