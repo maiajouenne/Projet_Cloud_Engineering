@@ -106,7 +106,7 @@ class TicketReponse(BaseModel):
     articles: List[Article]
     total: float
 
-@app.post("/dernier_ticket", response_model=TicketReponse)
+@app.post("/", response_model=TicketReponse)
 async def get_dernier_ticket():
     try:
         # Vérifier si la liste de tickets n'est pas vide
