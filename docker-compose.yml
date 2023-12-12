@@ -1,0 +1,58 @@
+version: '3'
+
+services:
+  # Kafka service
+  kafka:
+    image: 'bitnami/kafka:latest'
+    container_name: kafka_broker
+    ports:
+      - '9094:9094'
+    environment:
+      - KAFKA_CFG_NODE_ID=1
+      - KAFKA_CFG_PROCESS_ROLES=controller,broker 
+      - KAFKA_CFG_CONTROLLER_QUORUM_VOTERS=1@kafka:9093 
+      - KAFKA_CFG_CONTROLLER_LISTENER_NAMES=CONTROLLER 
+      - KAFKA_CFG_INTER_BROKER_LISTENER_NAME=PLAINTEXT 
+      - ALLOW_PLAINTEXT_LISTENER=yes
+      - KAFKA_CFG_LISTENERS=PLAINTEXT://:9092,CONTROLLER://:9093,EXTERNAL://:9094
+      - KAFKA_CFG_ADVERTISED_LISTENERS=PLAINTEXT://kafka:9092,EXTERNAL://127.0.0.1:9094
+      - KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP=CONTROLLER:PLAINTEXT,EXTERNAL:PLAINTEXT,PLAINTEXT:PLAINTEXT
+
+  # MongoDB service
+  mongodb:
+    image: mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_data:/data/db
+
+  # Node.js service for API-gestion-db
+  api_gestion_db:
+    build:
+      context: ./API-gestion-db/dockerfile
+    environment:
+      - KAFKA_ADRESS=kafka:9094
+      - KAFKA_ID=Consumer
+      - MONGO_NETWORK=mongodb
+      - MONGO_HOST=27017
+
+  # Node.js service for Serveur
+  serveur:
+    build:
+      context: ./Serveur/dockerfile
+    ports:
+      - "8080:8080"
+    environment:
+      - PORT=8080
+      - KAFKA_ADRESS=kafka:9094
+      - KAFKA_ID=Serveur
+
+  # Python service for Shop
+  shop:
+    build:
+      context: ./Shop/dockerfile
+    ports:
+      - "8000:8000"
+
+volumes:
+  mongodb_data:
