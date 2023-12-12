@@ -17,6 +17,9 @@ services:
       - KAFKA_CFG_LISTENERS=PLAINTEXT://:9092,CONTROLLER://:9093,EXTERNAL://:9094
       - KAFKA_CFG_ADVERTISED_LISTENERS=PLAINTEXT://kafka:9092,EXTERNAL://127.0.0.1:9094
       - KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP=CONTROLLER:PLAINTEXT,EXTERNAL:PLAINTEXT,PLAINTEXT:PLAINTEXT
+    mem_limit: 512m
+    mem_reservation: 128M
+    cpus: 0.5
 
   # MongoDB service
   mongodb:
@@ -25,6 +28,9 @@ services:
       - "27017:27017"
     volumes:
       - mongodb_data:/data/db
+    mem_limit: 512m
+    mem_reservation: 128M
+    cpus: 0.5
 
   # Node.js service for API-gestion-db
   api_gestion_db:
@@ -34,6 +40,9 @@ services:
       - KAFKA_ID=Consumer
       - MONGO_NETWORK=mongodb
       - MONGO_HOST=27017
+    mem_limit: 512m
+    mem_reservation: 128M
+    cpus: 0.5
 
   # Node.js service for Serveur
   serveur:
@@ -44,18 +53,28 @@ services:
       - PORT=8080
       - KAFKA_ADRESS=kafka:9092
       - KAFKA_ID=Serveur
+    mem_limit: 512m
+    mem_reservation: 128M
+    cpus: 0.5
 
   # Python service for Shop
   shop:
     build: ./Shop/
     ports:
       - "8000:8000"
+    mem_limit: 512m
+    mem_reservation: 128M
+    cpus: 0.5
 
   # Python service for ca
   ca:
     build: ./API-gestion-client/
     ports:
-      - "8000:8000"
+      - "50127:50127"
+    mem_limit: 512m
+    mem_reservation: 128M
+    cpus: 0.5
+    
 
 volumes:
   mongodb_data:
