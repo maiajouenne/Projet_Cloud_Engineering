@@ -6,18 +6,16 @@ import bodyParser from 'body-parser'; // Middleware for parsing JSON requests
 // Create an Express application
 const app = express();
 
-// Define the port for the Express application
-const port = process.env.RECEIVE_PORT || 8080;
+const kafka_adress = process.env.KAFKA_ADRESS || 'localhost:9094'
 
-// Define the kafka id
-const kafka_id = process.env.KAFKA_ID || 'localhost:9094'
+const kafka_id = process.env.KAFKA_ID || 'Serveur'
 
 // Create the kafka app
 
 // Create the kafka app
 const kafka = new Kafka({
-    clientId: 'Serveur',
-    brokers: [kafka_id],
+    clientId: 'kafka_id',
+    brokers: [kafka_adress],
   });
 
 
